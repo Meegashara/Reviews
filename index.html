@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en" data-framework="backbonejs">
+<head>
+    <meta charset="utf-8">
+    <title>Reviews</title>
+    <link rel="stylesheet" href="assets/index.css">
+</head>
+<body onload="document.getElementById('loadbut').click();" class="root">
+<header class="bar _fixed">
+    <div class="menu">
+        <div class="container">
+            <div class="tab">
+            <button id="loadbut" class="tablinks" onclick="openTab(event,'Home')">Home</button>
+            <button class="tablinks" onclick="openTab(event,'MyReview')">My review</button>
+            <button class="tablinks" onclick="openTab(event,'textTab')" hidden>Text</button>
+        </div>
+        </div>
+        <form class="searchbar">
+            <input type="text" id="myInput" onkeyup="mySearch()" placeholder="Поиск...">
+        </form>
+    </div>
+</header>
+<div id="Home" class="tabcontent">
+    <div class="home-review">
+        <ul id="myULHome" class="home-review-all"></ul>
+    </div>
+</div>
+<div class="pusto"></div>
+<div id="MyReview" class="tabcontent">
+    <div class="prostodvaslova"><h1>Ваша рецензия</h1></div>
+    <div class="reviewapp">
+        <div class="main">
+            <fieldset><input class="new-review" type="text" placeholder="Название"></fieldset>
+            <fieldset><textarea class="text-review" placeholder="Текст рецензии"></textarea></fieldset>
+        </div>
+        
+        <button class="add">Добавить</button>
+        <div class="history-review">
+            <ul id="myULReview" class="review-all"></ul>
+        </div>
+    </div>
+</div>
+<div id="textTab"  class="tabcontent">
+    <div class="text-tab"></div>
+    <p class="text-text"></p>
+    <p>Введите оценку от 0 до 10:</p>
+    <input class="like-num" type="text" placeholder="Ваша оценка">
+    <button class="like">Like</button>
+</div>
+<footer></footer>
+<script type="text/template" id="item-template">
+    <a href="" onclick="openTab(event,'textTab'); return href='#/api/review/<%= _id %>'"><%= title %></a>
+    <a><%= score %></a>
+</script>
+<script type="text/template" id="home-template">
+    <a href="" onclick="openTab(event,'textTab'); return href='#/api/review/<%= _id %>'"><%= title %></a>
+    <a><%= score %></a>
+</script>
+
+<script>
+function mySearch() {
+    var input, filter, ul, li, a, i;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("myULHome");
+    li = ul.getElementsByTagName("li");
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+
+        }
+    }
+}
+</script>
+
+<script src="js/lib/jquery.js"></script>
+<script src="js/lib/underscore.js"></script>
+<script src="js/lib/backbone.js"></script>
+<script src="js/lib/backbone.localStorage.js"></script>
+<script src="assets/tabs.js"></script>
+<script src="js/models/rev-model.js"></script>
+<script src="js/collections/rev-collection.js"></script>
+<script src="js/views/rev-view.js"></script>
+<script src="js/views/hist-view.js"></script>
+<script src="js/views/home-view.js"></script>
+<script src="js/routers/text-router.js"></script>
+<script src="js/rev-app.js"></script>
+</body>
+</html>
